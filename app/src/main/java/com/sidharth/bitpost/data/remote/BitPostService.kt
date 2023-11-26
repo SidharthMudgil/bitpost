@@ -1,5 +1,7 @@
 package com.sidharth.bitpost.data.remote
 
+import com.sidharth.bitpost.data.repository.ChatPrompt
+import com.sidharth.bitpost.data.repository.ImagePrompt
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Headers
