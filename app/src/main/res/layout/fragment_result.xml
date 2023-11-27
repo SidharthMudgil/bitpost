@@ -38,6 +38,7 @@
         app:layout_constraintVertical_bias="0" />
 
     <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/white_space"

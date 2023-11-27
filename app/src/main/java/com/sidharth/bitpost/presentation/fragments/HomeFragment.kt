@@ -1,6 +1,7 @@
 package com.sidharth.bitpost.presentation.fragments
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupViewsAndListeners() {
+        fragmentHomeBinding.etPurpose.movementMethod = ScrollingMovementMethod()
         fragmentHomeBinding.bottomBar.btnGenerate.setOnClickListener {
             if (isInputValid()) {
                 val action = HomeFragmentDirections.actionHomeFragmentToResultFragment(getPrompt())
