@@ -17,8 +17,10 @@ import com.sidharth.bitpost.R
 import com.sidharth.bitpost.databinding.FragmentResultBinding
 import com.sidharth.bitpost.domain.model.ContentResult
 import com.sidharth.bitpost.presentation.viewmodel.ResultViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ResultFragment : Fragment() {
 
     private lateinit var fragmentResultBinding: FragmentResultBinding
