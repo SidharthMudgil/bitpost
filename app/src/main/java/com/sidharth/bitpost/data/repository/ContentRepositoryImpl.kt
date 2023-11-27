@@ -1,10 +1,13 @@
 package com.sidharth.bitpost.data.repository
 
 import com.google.gson.Gson
-import com.sidharth.bitpost.domain.repository.ContentRepository
-import com.sidharth.bitpost.data.remote.ChomuResponse
+import com.sidharth.bitpost.core.constants.Constants
 import com.sidharth.bitpost.data.remote.BitPostService
-import com.sidharth.chomu.domain.model.Prompt
+import com.sidharth.bitpost.data.remote.ChatResponse
+import com.sidharth.bitpost.data.remote.ImageResponse
+import com.sidharth.bitpost.domain.model.Content
+import com.sidharth.bitpost.domain.model.ContentResult
+import com.sidharth.bitpost.domain.repository.ContentRepository
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -12,20 +15,57 @@ class ContentRepositoryImpl @Inject constructor(
     private val bitPostService: BitPostService
 ) : ContentRepository {
 
-    override suspend fun generateResult(prompt: Prompt) = flow {
-        emit(PromptResult.Loading)
-        val promptResult = bitPostService.getPromptResult(prompt)
-        val response = promptResult.body()?.string()
+    override suspend fun generateContent(purpose: String) = flow {
+        emit(ContentResult.Loading)
 
-        if (promptResult.isSuccessful) {
-            if (response.isNullOrBlank().not()) {
-                val res = Gson().fromJson(response, ChomuResponse::class.java)
-                emit(PromptResult.Success(res.choices[0].message.content))
+        val chatPrompt = ChatPrompt(
+            model = Constants.CHAT_MODEL,
+            messages = listOf(
+                Message(
+                    role = Constants.ROLE_SYSTEM,
+                    content = Constants.PROMPT
+                ),
+                Message(
+                    role = Constants.ROLE_USER,
+                    content = purpose
+                )
+            )
+        )
+
+        val chatPromptResult = bitPostService.generateContentResult(chatPrompt)
+        val chatResponseBody = chatPromptResult.body()?.string()
+
+        if (chatPromptResult.isSuccessful && chatResponseBody.isNullOrBlank().not()) {
+            val chatResponse = Gson().fromJson(chatResponseBody, ChatResponse::class.java)
+            val content = chatResponse.choices[0].message.content
+            val result = Gson().fromJson(content, ChatResult::class.java)
+
+            val imagePrompt = ImagePrompt(
+                model = Constants.IMAGE_MODEL,
+                prompt = result.imageAlt,
+                n = 1,
+                size = Constants.SIZE_SQUARE
+            )
+
+            val imagePromptResult = bitPostService.generateImage(imagePrompt)
+            val imageResponseBody = imagePromptResult.body()?.string()
+
+            if (imagePromptResult.isSuccessful && imageResponseBody.isNullOrBlank().not()) {
+                val imageResponse = Gson().fromJson(imageResponseBody, ImageResponse::class.java)
+                emit(
+                    ContentResult.Success(
+                        Content(
+                            caption = result.caption,
+                            image = imageResponse.data[0].url,
+                        )
+                    )
+                )
             } else {
-                emit(PromptResult.Error)
+                emit(ContentResult.Error)
             }
+
         } else {
-            emit(PromptResult.Error)
+            emit(ContentResult.Error)
         }
     }
 }

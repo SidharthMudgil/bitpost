@@ -9,3 +9,9 @@ data class Message(
     val role: String,
     val content: String
 )
+
+data class ChatResult(
+    val caption: String,
+    val hashtags: List<String>,
+    val imageAlt: String
+)
