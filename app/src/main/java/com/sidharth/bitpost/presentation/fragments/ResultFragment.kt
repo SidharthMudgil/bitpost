@@ -1,6 +1,7 @@
 package com.sidharth.bitpost.presentation.fragments
 
 import android.os.Bundle
+import android.text.Html
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -58,12 +59,18 @@ class ResultFragment : Fragment() {
 
                         is ContentResult.Loading -> {
                             fragmentResultBinding.bottomBar.btnGenerate.isClickable = false
-                            fragmentResultBinding.tvResult.text = getString(R.string.typing)
+                            val bodyRegex = Regex("<body[^>]*>([\\s\\S]*?)</body>").find(it.data)?.groupValues?.get(1)
+                            val htmlRegex = Regex("```html([\\s\\S]*?)```|```([\\s\\S]*?)```").find(it.data)?.groupValues?.get(1)
+                            val result = bodyRegex ?: htmlRegex ?: it.data
+                            fragmentResultBinding.tvResult.text = Html.fromHtml(result, Html.FROM_HTML_MODE_LEGACY)
                         }
 
                         is ContentResult.Success -> {
                             fragmentResultBinding.bottomBar.btnGenerate.isClickable = true
-                            fragmentResultBinding.tvResult.text = it.content.caption
+                            val bodyRegex = Regex("<body[^>]*>([\\s\\S]*?)</body>").find(it.content.caption)?.groupValues?.get(1)
+                            val htmlRegex = Regex("```html([\\s\\S]*?)```|```([\\s\\S]*?)```").find(it.content.caption)?.groupValues?.get(1)
+                            val result = bodyRegex ?: htmlRegex ?: it.content.caption
+                            fragmentResultBinding.tvResult.text = Html.fromHtml(result, Html.FROM_HTML_MODE_LEGACY)
                             fragmentResultBinding.ivImage.load(it.content.image)
                         }
                     }

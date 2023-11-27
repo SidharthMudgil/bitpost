@@ -16,8 +16,6 @@ class ContentRepositoryImpl @Inject constructor(
 ) : ContentRepository {
 
     override suspend fun generateContent(purpose: String) = flow {
-        emit(ContentResult.Loading)
-
         val chatPrompt = ChatPrompt(
             model = Constants.CHAT_MODEL,
             messages = listOf(
@@ -40,11 +38,13 @@ class ContentRepositoryImpl @Inject constructor(
             val content = chatResponse.choices[0].message.content
             val result = Gson().fromJson(content, ChatResult::class.java)
 
+            emit(ContentResult.Loading(result.caption))
+
             val imagePrompt = ImagePrompt(
                 model = Constants.IMAGE_MODEL,
                 prompt = result.imageAlt,
                 n = 1,
-                size = Constants.SIZE_SQUARE
+                size = Constants.SIZE_SQUARE_LARGE
             )
 
             val imagePromptResult = bitPostService.generateImage(imagePrompt)

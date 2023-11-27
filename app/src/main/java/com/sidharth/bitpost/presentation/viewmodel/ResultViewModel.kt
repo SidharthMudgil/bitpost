@@ -15,7 +15,9 @@ import javax.inject.Inject
 class ResultViewModel @Inject constructor(
     private val generateContentUseCase: GenerateContentUseCase
 ) : ViewModel() {
-    private val _result = MutableStateFlow<ContentResult>(ContentResult.Loading)
+    private val _result = MutableStateFlow<ContentResult>(
+        ContentResult.Loading("Typing...")
+    )
     val result: StateFlow<ContentResult> = _result
 
     suspend fun fetchResult(

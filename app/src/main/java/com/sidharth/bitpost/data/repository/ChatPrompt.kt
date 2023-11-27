@@ -1,5 +1,7 @@
 package com.sidharth.bitpost.data.repository
 
+import com.google.gson.annotations.SerializedName
+
 data class ChatPrompt(
     val model: String,
     val messages: List<Message>
@@ -11,7 +13,6 @@ data class Message(
 )
 
 data class ChatResult(
-    val caption: String,
-    val hashtags: List<String>,
-    val imageAlt: String
+    @SerializedName("caption") val caption: String,
+    @SerializedName("image_alt") val imageAlt: String
 )
