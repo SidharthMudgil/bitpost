@@ -54,7 +54,7 @@ class ResultFragment : Fragment() {
                     when (it) {
                         is ContentResult.Error -> {
                             fragmentResultBinding.bottomBar.btnGenerate.isClickable = true
-                            fragmentResultBinding.tvResult.text = it.data
+                            fragmentResultBinding.tvResult.text = it.data ?: getString(R.string.result_error)
                             fragmentResultBinding.progress.visibility = View.GONE
                         }
 

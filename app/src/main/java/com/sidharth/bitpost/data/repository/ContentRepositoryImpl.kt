@@ -61,11 +61,11 @@ class ContentRepositoryImpl @Inject constructor(
                     )
                 )
             } else {
-                emit(ContentResult.Error)
+                emit(ContentResult.Error(imagePromptResult.errorBody()?.string()?.plus("\nimage error")))
             }
 
         } else {
-            emit(ContentResult.Error)
+            emit(ContentResult.Error(chatPromptResult.errorBody()?.string()?.plus("\nchat error")))
         }
     }
 }
