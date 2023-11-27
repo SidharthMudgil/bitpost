@@ -1,5 +1,6 @@
 package com.sidharth.bitpost.data.remote
 
+import com.sidharth.bitpost.BuildConfig
 import com.sidharth.bitpost.data.repository.ChatPrompt
 import com.sidharth.bitpost.data.repository.ImagePrompt
 import okhttp3.ResponseBody
