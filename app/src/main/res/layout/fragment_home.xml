@@ -158,6 +158,7 @@
             android:hint="Donation camp for educating poor children on behalf of Children day"
             android:maxHeight="200dp"
             android:padding="@dimen/white_space"
+            android:scrollbars="vertical"
             android:textColor="@color/grey100"
             android:textColorHint="@color/grey300"
             android:textSize="16sp"

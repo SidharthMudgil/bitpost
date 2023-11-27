@@ -43,10 +43,7 @@
             app:popEnterAnim="@anim/pop_in"
             app:popExitAnim="@anim/pop_out" />
         <argument
-            android:name="caption"
-            app:argType="string" />
-        <argument
-            android:name="image"
+            android:name="prompt"
             app:argType="string" />
     </fragment>
 </navigation>
