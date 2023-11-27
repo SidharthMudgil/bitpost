@@ -1,3 +1,61 @@
 <resources>
     <string name="app_name">Bitpost</string>
+
+    <!-- Home Fragment -->
+    <string name="generate">Generate</string>
+    <string name="purpose">Purpose</string>
+
+    <string name="content_type">Content Type</string>
+    <string name="content_message">Cold Message</string>
+    <string name="content_text_post">Text Post</string>
+    <string name="content_image_caption">Image Caption</string>
+    <string name="content_link_description">Link Description</string>
+
+    <string name="platform">Platform</string>
+    <string name="platform_threads">Threads</string>
+    <string name="platform_instagram">Instagram</string>
+    <string name="platform_facebook">Facebook</string>
+    <string name="platform_twitter">Twitter</string>
+    <string name="platform_linkedin">LinkedIn</string>
+
+    <string name="formality">Formality</string>
+    <string name="casual">👕 Casual</string>
+    <string name="neutral">😐 Neutral</string>
+    <string name="formal">👔 Formal</string>
+
+    <string name="tone">Tone</string>
+    <string name="tone_optimistic">😃 Optimistic</string>
+    <string name="tone_worried">😟 Worried</string>
+    <string name="tone_friendly">🤗 Friendly</string>
+    <string name="tone_curious">🤔 Curious</string>
+    <string name="tone_assertive">😎 Assertive</string>
+    <string name="tone_encouraging">🥳 Encouraging</string>
+    <string name="tone_surprised">😮 Surprised</string>
+    <string name="tone_engaging">🫠 Engaging</string>
+    <string name="tone_cooperative">🤝 Cooperative</string>
+
+    <string name="length">Length</string>
+    <string name="length_short">🐀 Short</string>
+    <string name="length_medium">🐩 Medium</string>
+    <string name="length_long">🦣 Long</string>
+
+    <string name="style">Style</string>
+    <string name="style_none">🙅 None</string>
+    <string name="style_poetic">📜 Poetic</string>
+    <string name="style_philosopher">>🤯 Philosopher</string>
+    <string name="style_chef">👨‍🍳 Chef</string>
+    <string name="style_explorer">🗺️ Explorer</string>
+    <string name="style_scientist">🔬 Scientist</string>
+    <string name="style_comedian">🤡 Comedian</string>
+    <string name="style_futurist">🚀 Futurist</string>
+
+    <!--Result Fragment -->
+    <string name="re_generate">Re Generate</string>
+    <string name="result">Result</string>
+    <string name="typing">Typing…</string>
+    <string name="result_error">Unexpected Error Occurred, Please try again</string>
+
+    <!-- No Network Fragment -->
+    <string name="no_network_label">No Network Connection</string>
+    <string name="no_network_description">Unable to connect to the internet. Please check your network settings and try again.</string>
 </resources>

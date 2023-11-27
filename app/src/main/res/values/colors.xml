@@ -2,4 +2,19 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="grey100">#FFCED1DD</color>
+    <color name="grey300">#FF6C789E</color>
+
+    <color name="blue700">#FF08033C</color>
+    <color name="blue600">#FF09044D</color>
+    <color name="blue500">#FF18204D</color>
+    <color name="blue300">#FF2C3776</color>
+    <color name="blue100">#FF4484AB</color>
+
+    <color name="blue">#FF128FEB</color>
+    <color name="yellow">#FFFFB017</color>
+    <color name="orange">#FFDA774A</color>
+    <color name="red">#FFE53855</color>
+    <color name="green">#FF44AB96</color>
 </resources>
