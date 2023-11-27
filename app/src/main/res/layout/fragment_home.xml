@@ -156,6 +156,7 @@
             android:background="@drawable/bg_input_text"
             android:gravity="start"
             android:hint="Donation camp for educating poor children on behalf of Children day"
+            android:maxHeight="200dp"
             android:padding="@dimen/white_space"
             android:textColor="@color/grey100"
             android:textColorHint="@color/grey300"
