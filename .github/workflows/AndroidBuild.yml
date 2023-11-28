@@ -1,0 +1,41 @@
+name: AndroidBuild
+
+on:
+  pull-request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "This job is running on a ${{ runner.os }} server hosted by GitHub!"
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+      - run: echo "The ${{ github.repository }} repository has been cloned."
+
+      - run: echo "Setting up JDK"
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.13.0
+        with:
+          java-version: '17'
+          distribution: 'oracle'
+      - run: echo "JDK setup completed"
+      - run: echo "The workflow is now ready to build your code"
+
+      - run: echo "Building the apk"
+      - name: Build with Gradle
+        run: ./gradlew build
+      - run: echo "Apk build finished"
+
+      - run: echo "Uploading build artifact"
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: BitPost.apk
+          path: app/build/outputs/apk/debug/app-release.apk
+      - run: echo "Build artifact uploaded"
+      - run: echo "Build job completed"
