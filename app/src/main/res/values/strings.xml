@@ -5,12 +5,6 @@
     <string name="generate">Generate</string>
     <string name="purpose">Purpose</string>
 
-    <string name="content_type">Content Type</string>
-    <string name="content_message">Cold Message</string>
-    <string name="content_text_post">Text Post</string>
-    <string name="content_image_caption">Image Caption</string>
-    <string name="content_link_description">Link Description</string>
-
     <string name="platform">Platform</string>
     <string name="platform_threads">Threads</string>
     <string name="platform_instagram">Instagram</string>
