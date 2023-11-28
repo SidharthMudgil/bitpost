@@ -53,12 +53,16 @@ class ResultFragment : Fragment() {
                 resultViewModel.result.collect {
                     when (it) {
                         is ContentResult.Error -> {
+                            fragmentResultBinding.progress.visibility = View.GONE
+                            fragmentResultBinding.ivImage.visibility = View.GONE
                             fragmentResultBinding.bottomBar.btnGenerate.isClickable = true
                             fragmentResultBinding.tvResult.text = it.data ?: getString(R.string.result_error)
                             fragmentResultBinding.progress.visibility = View.GONE
                         }
 
                         is ContentResult.Loading -> {
+                            fragmentResultBinding.progress.visibility = View.VISIBLE
+                            fragmentResultBinding.ivImage.visibility = View.GONE
                             fragmentResultBinding.bottomBar.btnGenerate.isClickable = false
                             val bodyRegex = Regex("<body[^>]*>([\\s\\S]*?)</body>").find(it.data)?.groupValues?.get(1)
                             val htmlRegex = Regex("```html([\\s\\S]*?)```|```([\\s\\S]*?)```").find(it.data)?.groupValues?.get(1)
@@ -68,6 +72,7 @@ class ResultFragment : Fragment() {
 
                         is ContentResult.Success -> {
                             fragmentResultBinding.progress.visibility = View.GONE
+                            fragmentResultBinding.ivImage.visibility = View.VISIBLE
                             fragmentResultBinding.bottomBar.btnGenerate.isClickable = true
                             val bodyRegex = Regex("<body[^>]*>([\\s\\S]*?)</body>").find(it.content.caption)?.groupValues?.get(1)
                             val htmlRegex = Regex("```html([\\s\\S]*?)```|```([\\s\\S]*?)```").find(it.content.caption)?.groupValues?.get(1)
