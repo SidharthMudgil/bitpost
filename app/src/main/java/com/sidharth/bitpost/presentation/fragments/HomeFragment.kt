@@ -34,13 +34,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun getPrompt(): String {
-        return "platform: ${getPlatform()}" +
-                "contentType: ${getContentType()}" +
-                "purpose: ${fragmentHomeBinding.etPurpose.text}" +
-                "Formality: ${getFormality()}" +
-                "Tone: ${getTone()}" +
-                "Length: ${getLength()}" +
-                "Style: ${getStyle()}"
+        return "Persona: ${getStyle()} " +
+                "platform: ${getPlatform()} " +
+                "purpose: ${fragmentHomeBinding.etPurpose.text} " +
+                "Formality: ${getFormality()} " +
+                "Tone: ${getTone()} " +
+                "Length: ${getLength()} "
     }
 
     private fun isInputValid(): Boolean {
@@ -54,16 +53,6 @@ class HomeFragment : Fragment() {
             R.id.chip_facebook -> "Facebook"
             R.id.chip_instagram -> "Instagram"
             R.id.chip_threads -> "Threads"
-            else -> "Other"
-        }
-    }
-
-    private fun getContentType(): String {
-        return when (fragmentHomeBinding.cgContentType.checkedChipId) {
-            R.id.chip_message -> "Cold Message"
-            R.id.chip_text -> "Text Post"
-            R.id.chip_caption -> "Image Caption"
-            R.id.chip_link -> "Link Description"
             else -> "Other"
         }
     }
@@ -103,7 +92,7 @@ class HomeFragment : Fragment() {
 
     private fun getStyle(): String {
         return when (fragmentHomeBinding.cgStyle.checkedChipId) {
-            R.id.chip_none -> "None"
+            R.id.chip_none -> "Content Writer"
             R.id.chip_poetic -> "Poetic"
             R.id.chip_philosopher -> "Philosopher"
             R.id.chip_chef -> "Chef"
