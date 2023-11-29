@@ -48,6 +48,12 @@ jobs:
       - name: Creating local.properties with API_KEY
         run: echo API_KEY=${{ secrets.API_KEY }} > ./local.properties
 
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.13.0
+        with:
+          java-version: '17'
+          distribution: 'oracle'
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
@@ -69,6 +75,12 @@ jobs:
 
       - name: Creating local.properties with API_KEY
         run: echo API_KEY=${{ secrets.API_KEY }} > ./local.properties
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.13.0
+        with:
+          java-version: '17'
+          distribution: 'oracle'
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
