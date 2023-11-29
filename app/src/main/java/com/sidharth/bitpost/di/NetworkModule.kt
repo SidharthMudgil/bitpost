@@ -20,9 +20,9 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(): Retrofit {
         val client = OkHttpClient.Builder()
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
             .build()
 
         return Retrofit.Builder()
@@ -40,4 +40,7 @@ class NetworkModule {
         return retrofit.create(BitPostService::class.java)
     }
 
+    companion object {
+        private const val TIMEOUT = 60L
+    }
 }

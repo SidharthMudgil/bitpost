@@ -5,6 +5,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
+    id("io.gitlab.arturbosch.detekt")
 }
 
 android {
@@ -84,4 +85,7 @@ dependencies {
 
     // image loading - Coil
     implementation("io.coil-kt:coil:2.4.0")
+
+    // ktlint formatting
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.3")
 }
