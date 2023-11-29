@@ -124,7 +124,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.3
         with:
           name: BitPost.apk
-          path: app/build/reports/detekt/detekt.apk
+          path: app/build/reports/detekt/detekt.html
 
   build:
     needs: [ static-code-analysis ]
