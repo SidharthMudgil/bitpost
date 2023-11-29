@@ -2,17 +2,113 @@ name: AndroidBuild
 
 on:
   pull_request:
-    branches: [main]
+    branches: [ main ]
   push:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run Lint Check
+        run: ./gradlew lintDebug
+
+      - name: Upload Build Lint Report
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: lint-report.html
+          path: app/build/reports/lint-results-debug.html
+
+  unit-test:
+    needs: [ lint ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Creating local.properties with API_KEY
+        run: echo API_KEY=${{ secrets.API_KEY }} > ./local.properties
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run Unit Tests
+        run: ./gradlew test
+
+      - name: Upload Unit Test Report
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: unit-test-report
+          path: app/build/reports/tests/testDebugUnitTest/
+
+  instrumentation-test:
+    needs: [ unit-test ]
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Creating local.properties with API_KEY
+        run: echo API_KEY=${{ secrets.API_KEY }} > ./local.properties
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run Espresso Tests
+        uses: ReactiveCircus/android-emulator-runner@v2.28.0
+        with:
+          api-level: 30
+          script: ./gradlew connectedCheck
+
+      - name: Upload Instrumentation Test Report
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: instrumentation-test-report
+          path: app/build/reports/androidTests/connected/
+
+  static-code-analysis:
+    needs: [ instrumentation-test ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Creating local.properties with API_KEY
+        run: echo API_KEY=${{ secrets.API_KEY }} > ./local.properties
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+          distribution: 'oracle'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run Static Code Analysis
+        run: ./gradlew detekt
+
+      - name: Upload Static Code Analysis Report
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: BitPost.apk
+          path: app/build/reports/detekt/detekt.apk
+
+  build:
+    needs: [ static-code-analysis ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Creating local.properties with API_KEY
+        run: echo API_KEY=${{ secrets.API_KEY }} > ./local.properties
 
       - name: Setup Java JDK
         uses: actions/setup-java@v3.13.0
