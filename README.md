@@ -51,8 +51,3 @@ This project is licensed under the [GPL-3.0](./LICENSE).
 
 ## How to Contribute
 Excited to contribute to BitPost? Please read our [Contribution Guidelines](./CONTRIBUTING.md) to get started. Your ideas and expertise are welcome!
-
-vbnet
-Copy code
-
-Feel free to customize this template based on your project's specific details and structure.
